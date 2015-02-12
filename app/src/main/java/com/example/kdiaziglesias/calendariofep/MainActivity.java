@@ -62,6 +62,9 @@ public class MainActivity extends Activity implements DialogInterface.OnClickLis
     @Override
     public void onClick(DialogInterface dialog, int which) {
         addEvent();
+        addEventUsingIntent();
+        addAttendee();
+
 
     }
 
@@ -118,10 +121,26 @@ public class MainActivity extends Activity implements DialogInterface.OnClickLis
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.Events.DTSTART,Calendar.getInstance().getTimeInMillis())
                 .putExtra(CalendarContract.Events.DTEND,Calendar.getInstance().getTimeInMillis())
-                .putExtra(CalendarContract.Events.TITLE,"Competiciones")
-                .putExtra(CalendarContract.Events.DESCRIPTION,"Prueba del Calendario");
+                .putExtra(CalendarContract.Events.TITLE,"Competiciones2")
+                .putExtra(CalendarContract.Events.DESCRIPTION, "Calendario Oficial");
         startActivity(intent);
 
+    }
+
+    private void addAttendee(){
+
+        ContentValues cv = new ContentValues();
+        cv.put(CalendarContract.Attendees.ATTENDEE_NAME,"Kevin Diaz");
+        cv.put(CalendarContract.Attendees.ATTENDEE_EMAIL,"quixoskdi@gmail.com");
+        cv.put(CalendarContract.Attendees.EVENT_ID,eventID);
+        cv.put(CalendarContract.Attendees.ATTENDEE_RELATIONSHIP, CalendarContract.Attendees.RELATIONSHIP_ATTENDEE);
+        cv.put(CalendarContract.Attendees.ATTENDEE_STATUS, CalendarContract.Attendees.ATTENDEE_STATUS_INVITED);
+        cv.put(CalendarContract.Attendees.ATTENDEE_TYPE, CalendarContract.Attendees.TYPE_OPTIONAL);
+
+        this.getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI,cv);
 
     }
+
+
+
 }
