@@ -2,6 +2,7 @@ package com.example.kdiaziglesias.calendariofep;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -108,6 +109,19 @@ public class MainActivity extends Activity implements DialogInterface.OnClickLis
 
         }
         return -1L;
+
+    }
+    private void addEventUsingIntent(){
+
+        calenderID=getCalenderID();
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.Events.DTSTART,Calendar.getInstance().getTimeInMillis())
+                .putExtra(CalendarContract.Events.DTEND,Calendar.getInstance().getTimeInMillis())
+                .putExtra(CalendarContract.Events.TITLE,"Competiciones")
+                .putExtra(CalendarContract.Events.DESCRIPTION,"Prueba del Calendario");
+        startActivity(intent);
+
 
     }
 }
