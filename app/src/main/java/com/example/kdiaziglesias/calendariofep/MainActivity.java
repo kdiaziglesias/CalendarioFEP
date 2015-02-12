@@ -64,6 +64,7 @@ public class MainActivity extends Activity implements DialogInterface.OnClickLis
         addEvent();
         addEventUsingIntent();
         addAttendee();
+        addReminder();
 
 
     }
@@ -141,6 +142,17 @@ public class MainActivity extends Activity implements DialogInterface.OnClickLis
 
     }
 
+    private void addReminder(){
+
+        ContentValues values = new ContentValues();
+        values.put(CalendarContract.Reminders.MINUTES,15);
+        values.put(CalendarContract.Reminders.EVENT_ID,eventID);
+        values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+
+        this.getContentResolver().insert(CalendarContract.Reminders.CONTENT_URI,values);
+
+
+    }
 
 
 }
